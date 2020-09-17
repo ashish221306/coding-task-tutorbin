@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row > .column {
+  padding: 0 8px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+  width: 25%;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 10px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(17, 17, 17);
+}
+
+/* Modal Content */
+.modal-content {
+  padding-top: -100px;
+  position: relative;
+  background-color: #111111;
+  margin: auto;
+  padding: 30px;
+  height: 60vh;
+  width: 70%;
+  max-width: 1200px;
+}
+.navigation{height: 20vh;
+background: rgba(247, 230, 230, 0.2);
+z-index: 28;}
+/* The Close Button */
+.close {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mySlides {
+  display: none;
+  max-height: 300px;
+}
+.mySlides img,.mySlides iframe{height: 300px;}
+
+
+
+
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+img {
+  margin-bottom: -4px;
+}
+
+.caption-container {
+  text-align: center;
+  background-color: black;
+  padding: 2px 16px;
+  color: white;
+}
+
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+img.hover-shadow {
+  transition: 0.3s;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.navigation{
+    margin-top: 2px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+        background:#ccc;
+        text-align: center;
+        z-index: 767;
+    }
+    .navigation ul{
+        overflow-x: auto;
+        list-style: none;
+        padding: 7px;
+        
+        flex-direction: row;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        align-content: space-around;
+        align-items: center;
+        }
+    .navigation ul li{display: inline-block;margin-right: 2%;}
+    .navigation ul li .navitem{
+        
+        cursor: pointer;
+        height: 100px;
+        width: 100px;
+        background: #ffffff;
+    }
+
+    .view .header{padding: 20px;margin-bottom: 20px;}
+    
+    .view .header .left{position: absolute;top:10px;left: 10px;}
+    .view .header .right{position: absolute;top:10px;right: 10px;}
+
+    .header .right ul li{display: inline-block;margin-right: 3px;cursor: pointer;}
+    .header .right ul li a i{font-weight: 18px;}
+
+    
+</style>
+</head>
+<body>
+
+
+
+
+    <div id="myModal" class="modal">
+        <div class="view">
+          <div class="header">
+              <div class="left">
+              <button id="slideno" class="btn text-white border-secondary">1</button>
+              </div>
+              <div class="right">
+              <ul>
+                <li><button class="btn bg-dark text-white border border-secondary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-trash"></i></button></li>
+                <li><button href="" class="btn bg-dark text-white border-secondary"><i class="fa fa-download"></i></button></li>
+                <li><button href="" class="btn bg-dark text-white border-secondary"><i class="fa fa-times"></i></button></li>
+              </ul>
+              <div id="alert" class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong> File has been deleted successfully.
+              </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-content">
+      
+          <div class="mySlides">
+            <div class="numbertext">1 / 7</div>
+            <iframe src="./files/package.json"  style="width:100%;background: #ccc;">
+          </div>
+      
+          <div class="mySlides">
+            <div class="numbertext">2 / 7</div>
+            <div style="width: 100%;color: #ffffff;text-align: center;">This viewer can not show .docx file<br>
+                <a href="./files/keywords.txt" download>download to view</a>
+                </div>
+          </div>
+      
+          <div class="mySlides">
+            <div class="numbertext">3 / 7</div>
+            <img src="./files/home.jpg" style="width:100%">
+          </div>
+          
+          <div class="mySlides">
+            <div class="numbertext">4 / 7</div>
+            <div style="width: 100%;color: #ffffff;text-align: center;">This viewer can not show .docx file<br>
+            <a href="./files/ashishcv.docx" download>download to view</a>
+            </div>
+          </div>
+      
+          <div class="mySlides">
+              <div class="numbertext">5 / 7</div>
+              <iframe src="./files/ashishcv.pdf" style="width:100% ;overflow-y: auto;" height="400px" ></iframe>
+            </div>
+        
+        
+              <div class="mySlides">
+                <div class="numbertext">6 / 7</div>
+                <iframe src="./files/ashishcv.pdf" style="width:100%;background: #ccc;"></iframe>
+              </div>
+              
+              <div class="mySlides">
+                <div class="numbertext">7 / 7</div>
+                <iframe src="./files/animation.html" style="width:100%;background: #ccc;"></iframe>
+              </div>
+          
+          
+      
+      
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+
+
+  
+</div>
+<div class="navigation">
+    <ul>
+        <li>
+            
+                <div class="navitem demo cursor" onclick="currentSlide(1)">
+                    <i class="fa fa-file"  style="font-size: 30px;color: rgb(18, 36, 25);padding-left: 40%;padding-top: 26%;"></i>
+                </div>
+            
+        </li>
+        <li>
+            
+                <div class="navitem demo cursor" onclick="currentSlide(2)">
+                    <i class="fa fa-file-text" style="font-size: 30px;color: rgb(18, 36, 25);padding-left: 40%;padding-top: 26%;"></i>
+                </div>
+                
+           
+        </li>
+          <li>
+           
+                <div class="navitem demo cursor">
+                <img class="img responsive" onclick="currentSlide(3)" src="./files/home.jpg" height="100%" width="100%">
+                </div>
+            
+        </li>
+        <li>
+            
+                <div class="navitem demo cursor" onclick="currentSlide(4)">
+                    <i class="fa fa-file-archive-o" style="font-size: 30px;color: rgb(9, 128, 58);padding-left: 40%;padding-top: 26%;"></i>
+                </div>
+            
+        </li>
+        <li>
+            
+                <div class="navitem demo cursor" onclick="currentSlide(5)">
+                    <i class="fa fa-file-word-o" style="font-size: 30px;color: blue;padding-left: 40%;padding-top: 26%;"></i>
+                </div>
+           
+        </li>
+        <li>
+    
+                <div class="navitem demo cursor" onclick="currentSlide(6)">
+                <i class="fa fa-file-pdf-o" style="font-size: 30px;color: red;padding-left: 40%;padding-top: 26%;"></i>
+                </div>
+           
+        </li>
+        <li>
+           
+                <div class="navitem demo cursor" onclick="currentSlide(7)">
+                    <i class="fa fa-file-code-o" style="font-size: 30px;color: rgb(77, 71, 71);padding-left: 40%;padding-top: 26%;"></i>
+                </div>
+            
+        </li>
+    
+        
+         </ul>
+     </div>
+
+     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+             
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Are you sure , want to delete this file ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" id="confirm" class="btn btn-primary" data-dismiss="modal">delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+<script>
+function openModal() {
+  document.getElementById("myModal").style.display = "block";
+}
+openModal();
+function closeModal() {
+  document.getElementById("myModal").style.display = "none";
+}
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  
+}
+</script>
+    
+</body>
+</html>
